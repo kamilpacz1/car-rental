@@ -11,6 +11,8 @@ import java.math.RoundingMode;
 import java.time.LocalDateTime;
 import java.util.Scanner;
 
+import static org.apache.commons.math3.util.Precision.round;
+
 public class Rental {
     private RentalEntry[] rentals = new RentalEntry[100];
     private int rentalCount;
@@ -18,6 +20,7 @@ public class Rental {
     private int rentalCountArchive;
     private CarStorage carStorage;
     private UserStorage userStorage;
+    private Math Precision;
 
     public Rental(CarStorage carStorage, UserStorage userStorage) {
         this.carStorage = carStorage;
@@ -94,10 +97,9 @@ public class Rental {
             discount += 0.1;
         }
         if (user.isAgeOver(40)) {
+            discount += 0.1;
         }
-        return Precision.round(basePrice * (1 - discount), 2, BigDecimal.ROUND_UP);
-
-
+        return round(basePrice * (1 - discount), 2, BigDecimal.ROUND_UP);
     }
 
     private BigDecimal calculatePriceBD(User user, Car car, int numberOfDays) {
